@@ -1,50 +1,167 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hokodaca — 为中小企业定制的 AI 全生命周期解决方案</title>
-<meta name="description" content="Hokodaca：为中小企业定制的 AI 全生命周期解决方案。客服、获客、内部知识库、流程自动化。">
+<title>Hokodaca — End-to-end AI solutions, built for SMEs</title>
+<meta name="description" content="Hokodaca builds custom AI agents for small and medium businesses: customer support, sales follow-up, internal knowledge Q&A, and workflow automation. AI for a Smarter Business.">
 <style>
-body{font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:720px;margin:0 auto;padding:32px 20px;line-height:1.7;color:#222}
-h1{font-size:28px} h2{font-size:20px;margin-top:32px}
-a{color:#1d4ed8} .tag{color:#666;font-size:14px}
-ul{padding-left:20px}
+:root{--blue:#2563eb;--violet:#7c3aed;--navy:#0b1220;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin:0;color:var(--ink);line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:10}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em;color:var(--navy);font-size:18px}
+.brand:hover{text-decoration:none}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--ink);font-size:15px}
+.nav-links a:hover{color:var(--blue)}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;padding:10px 20px;border-radius:999px;font-weight:600;font-size:15px;border:0;cursor:pointer}
+.btn:hover{text-decoration:none;opacity:.92}
+.btn-ghost{display:inline-block;background:#fff;color:var(--navy);padding:10px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1px solid var(--line)}
+.btn-ghost:hover{text-decoration:none;border-color:var(--blue);color:var(--blue)}
+.hero{background:var(--navy);color:#fff;padding:88px 0 96px}
+.hero .eyebrow{color:#93c5fd;letter-spacing:.18em;font-size:13px;font-weight:700;margin:0 0 18px}
+.hero h1{font-size:52px;line-height:1.12;margin:0 0 20px;letter-spacing:-.02em}
+.hero h1 .grad{background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lede{font-size:19px;color:#cbd5e1;max-width:640px;margin:0 0 32px}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero .note{margin-top:26px;color:#94a3b8;font-size:14px}
+section{padding:72px 0}
+section.alt{background:var(--bg)}
+h2{font-size:32px;letter-spacing:-.01em;margin:0 0 12px;color:var(--navy)}
+.sub{color:var(--muted);font-size:17px;margin:0 0 40px;max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px}
+.card h3{margin:0 0 8px;font-size:19px;color:var(--navy)}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.card .icon{font-size:26px;margin-bottom:14px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.step{border-top:3px solid var(--blue);padding-top:18px}
+.step .n{font-size:13px;font-weight:700;color:var(--blue);letter-spacing:.12em}
+.step h3{margin:6px 0 8px;font-size:19px;color:var(--navy)}
+.step p{margin:0;color:var(--muted);font-size:15px}
+.showcase{background:var(--navy);color:#fff;border-radius:20px;padding:48px}
+.showcase h2{color:#fff}
+.showcase p{color:#cbd5e1;max-width:640px}
+.showcase code{background:#1e293b;color:#93c5fd;padding:2px 8px;border-radius:6px;font-size:14px}
+.note-list{list-style:none;padding:0;margin:0}
+.note-list li{border-bottom:1px solid var(--line);padding:18px 0}
+.note-list li:last-child{border-bottom:0}
+.note-list a{font-size:18px;font-weight:600;color:var(--navy)}
+.note-list a:hover{color:var(--blue)}
+.note-list p{margin:4px 0 0;color:var(--muted);font-size:15px}
+footer{border-top:1px solid var(--line);padding:48px 0;color:var(--muted);font-size:14px}
+footer .cols{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--blue)}
+@media(max-width:640px){.hero h1{font-size:36px}.nav-links a:not(.btn){display:none}section{padding:56px 0}}
 </style>
 </head>
 <body>
-<h1>Hokodaca</h1>
-<p class="tag">为中小企业定制的 AI 全生命周期解决方案 · AI for a Smarter Business · 简体中文</p>
-<p>我们帮中小企业把一个重复流程交给 AI：先从一个流程试起，跑通了再扩大。自己的服务器就是第一个样板。</p>
-<p>联系：hokodaca@gmail.com</p>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <svg width="34" height="34" viewBox="0 0 36 36" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><polygon points="18,2 32,10 32,26 18,34 4,26 4,10" fill="url(#lg)"/><text x="18" y="24" text-anchor="middle" font-size="17" font-weight="bold" fill="#fff" font-family="system-ui,sans-serif">h</text></svg>
+      HOKODACA
+    </a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#products">Products</a>
+      <a href="#how">How it works</a>
+      <a href="#notes">Notes</a>
+      <a class="btn" href="mailto:hokodaca@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
 
-<h2>服务</h2>
-<ul>
-<li><strong>客服智能体</strong>——回答客户问题、接单、售后。</li>
-<li><strong>销售 / 获客智能体</strong>——跟进线索、约时间、整理客户资料。</li>
-<li><strong>内部知识库问答</strong>——员工查资料、查制度，不用翻文档。</li>
-<li><strong>流程自动化</strong>——表单、审批、报表自动跑。</li>
-</ul>
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">AI FOR A SMARTER BUSINESS</p>
+    <h1>End-to-end AI solutions,<br><span class="grad">built for SMEs.</span></h1>
+    <p class="lede">We design, build, and run custom AI agents for small and medium businesses — from the first workflow to production, hosted and maintained for you.</p>
+    <div class="cta">
+      <a class="btn" href="#services">See our services</a>
+      <a class="btn-ghost" href="#products">Try the free Prompt Tool</a>
+    </div>
+    <p class="note">Currently onboarding our first SME clients.</p>
+  </div>
+</div>
 
-<h2>怎么做</h2>
-<ul>
-<li>1. 先做一次低价审计，看哪个流程最值得先上 AI。</li>
-<li>2. 先做一个智能体试点，跑通一个流程。</li>
-<li>3. 上线后按月托管和维护。</li>
-</ul>
-<p>价格：审计和搭建的价目正在定，定了就公布在这一页。</p>
+<section id="services">
+  <div class="wrap">
+    <h2>What we build</h2>
+    <p class="sub">AI agents built around your workflow — not generic chatbots. Each one is tailored to how your business actually runs.</p>
+    <div class="grid">
+      <div class="card"><div class="icon">&#128172;</div><h3>Customer Support Agents</h3><p>Answer customer questions, take orders, and handle after-sales — around the clock, in your brand&rsquo;s voice.</p></div>
+      <div class="card"><div class="icon">&#128200;</div><h3>Sales &amp; Lead Agents</h3><p>Follow up leads, book meetings, and keep your pipeline organised — so no enquiry goes cold.</p></div>
+      <div class="card"><div class="icon">&#128218;</div><h3>Internal Knowledge Q&amp;A</h3><p>Your team asks, the agent answers — from your docs, policies, and know-how. No more digging through files.</p></div>
+      <div class="card"><div class="icon">&#9881;</div><h3>Workflow Automation</h3><p>Forms, approvals, and reports that run themselves, so your team spends time on customers, not paperwork.</p></div>
+    </div>
+  </div>
+</section>
 
-<h2>样板演示（在建）</h2>
-<p>自己的基建就是第一个样板：Oracle ARM 服务器 + LiteLLM + Postgres + Hermes，正在搭建中。</p>
+<section id="products" class="alt">
+  <div class="wrap">
+    <h2>Products</h2>
+    <p class="sub">Free tools to use today. Paid packs when you&rsquo;re ready for more.</p>
+    <div class="grid">
+      <div class="card"><div class="icon">&#9998;</div><h3>Free Prompt Tool</h3><p>Write better prompts in seconds. Six industries, no sign-up, free. Fill in three blanks and copy a prompt that works.</p><p style="margin-top:14px"><a href="#products">Try it free &rarr;</a></p></div>
+      <div class="card"><div class="icon">&#128230;</div><h3>Prompt Pack 1: Support + Sales</h3><p>30 ready-to-use prompts for customer service and sales follow-up. $19. Coming soon.</p><p style="margin-top:14px"><a href="mailto:hokodaca@gmail.com?subject=Prompt%20Pack%201">Get notified &rarr;</a></p></div>
+    </div>
+  </div>
+</section>
 
-<h2>基建手记</h2>
-<ul>
-<li><a href="posts/2026-11-13-free-tier-three-services.html">三家免费额度实测——OpenRouter、Groq、Cloudflare</a></li>
-</ul>
-<p class="tag">手记只写自己实测过的东西，不写没验过的。</p>
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="sub">Start small, prove it works, then expand. No big-bang rebuild.</p>
+    <div class="steps">
+      <div class="step"><div class="n">STEP 01</div><h3>Audit</h3><p>A low-cost audit finds the one workflow most worth automating first.</p></div>
+      <div class="step"><div class="n">STEP 02</div><h3>Pilot</h3><p>We build one agent for one workflow and prove it works on your real work.</p></div>
+      <div class="step"><div class="n">STEP 03</div><h3>Run</h3><p>We host, monitor, and maintain it month to month — you just use it.</p></div>
+    </div>
+  </div>
+</section>
 
-<h2>账号</h2>
-<p>全是 Hokodaca、@hokodaca：Pinterest · Medium · Instagram · Threads · YouTube · TikTok（只建不发）· Rumble · Odysee</p>
-<p class="tag">2026-11-14 上线。价目和样板仍在推进中。</p>
+<section>
+  <div class="wrap">
+    <div class="showcase">
+      <h2>Our own infrastructure is our first demo.</h2>
+      <p>We run our AI on our own servers — Oracle ARM, <code>LiteLLM</code>, <code>Postgres</code>, and Hermes — the same stack we build for clients. If it isn&rsquo;t good enough for us, we don&rsquo;t sell it to you.</p>
+    </div>
+  </div>
+</section>
+
+<section id="notes" class="alt">
+  <div class="wrap">
+    <h2>Notes</h2>
+    <p class="sub">What we learn building this, written down.</p>
+    <ul class="note-list">
+      <li><a href="posts/2026-11-13-free-tier-three-services.html">Three free tiers, tested: OpenRouter, Groq, Cloudflare</a><p>What each free tier actually gives you — and where each one trips you up. 2026-11-13.</p></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap cols">
+    <div>
+      <strong style="color:var(--navy)">HOKODACA</strong><br>
+      AI for a Smarter Business<br>
+      <a href="mailto:hokodaca@gmail.com">hokodaca@gmail.com</a>
+    </div>
+    <div>
+      <a href="https://github.com/hokodaca">GitHub</a> &middot;
+      <a href="https://www.youtube.com/@hokodaca">YouTube</a> &middot;
+      <a href="https://hokodaca.substack.com/">Substack</a> &middot;
+      <a href="https://x.com/hokodaca">X</a> &middot;
+      <a href="https://hokodaca.hashnode.dev/">Hashnode</a>
+    </div>
+    <div>&copy; 2026 Hokodaca</div>
+  </div>
+</footer>
 </body>
 </html>

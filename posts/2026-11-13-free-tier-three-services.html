@@ -1,47 +1,108 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>三家免费额度实测——OpenRouter、Groq、Cloudflare | Hokodaca 服务器手记</title>
+<title>Three free tiers, tested: OpenRouter, Groq, Cloudflare | Hokodaca Notes</title>
+<meta name="description" content="What each free tier actually gives you — and where each one trips you up. Tested 2026-11-13.">
 <style>
-body{font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:720px;margin:0 auto;padding:32px 20px;line-height:1.7;color:#222}
-h1{font-size:24px} h2{font-size:19px;margin-top:28px}
-a{color:#1d4ed8} .tag{color:#666;font-size:14px}
+:root{--blue:#2563eb;--violet:#7c3aed;--navy:#0b1220;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--bg:#f8fafc}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin:0;color:var(--ink);line-height:1.7}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);z-index:10}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em;color:var(--navy);font-size:18px}
+.brand:hover{text-decoration:none}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{color:var(--ink);font-size:15px}
+.nav-links a:hover{color:var(--blue)}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;padding:10px 20px;border-radius:999px;font-weight:600;font-size:15px;border:0;cursor:pointer}
+.btn:hover{text-decoration:none;opacity:.92}
+article{max-width:720px;margin:0 auto;padding:56px 20px}
+article h1{font-size:32px;line-height:1.25;color:var(--navy);margin:0 0 12px;letter-spacing:-.01em}
+article h2{font-size:22px;color:var(--navy);margin:36px 0 10px}
+article .tag{color:var(--muted);font-size:14px}
+article ul{padding-left:20px}
+article li{margin-bottom:8px}
+article code{background:var(--bg);border:1px solid var(--line);padding:1px 6px;border-radius:5px;font-size:14px}
+footer{border-top:1px solid var(--line);padding:48px 0;color:var(--muted);font-size:14px}
+footer .cols{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--blue)}
+@media(max-width:640px){.nav-links a:not(.btn){display:none}article h1{font-size:26px}}
 </style>
 </head>
 <body>
-<p class="tag"><a href="../index.html">← 回首页</a> · 2026-11-13</p>
-<h1>三家免费额度实测：OpenRouter、Groq、Cloudflare</h1>
-<p><strong>结论先说：三家都能白嫖，但各有坑。OpenRouter 最快上手，Groq 最快也最容易被拦，Cloudflare 最稳。密钥只显示一次，建好立刻存保险库，永远别贴聊天里。</strong></p>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="../index.html">
+      <svg width="34" height="34" viewBox="0 0 36 36" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs><polygon points="18,2 32,10 32,26 18,34 4,26 4,10" fill="url(#lg)"/><text x="18" y="24" text-anchor="middle" font-size="17" font-weight="bold" fill="#fff" font-family="system-ui,sans-serif">h</text></svg>
+      HOKODACA
+    </a>
+    <nav class="nav-links">
+      <a href="../index.html#services">Services</a>
+      <a href="../index.html#products">Products</a>
+      <a href="../index.html#how">How it works</a>
+      <a href="../index.html#notes">Notes</a>
+      <a class="btn" href="mailto:hokodaca@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
 
-<h2>1. OpenRouter：最快，十分钟办完</h2>
+<article>
+<p class="tag"><a href="../index.html">&larr; Home</a> &middot; 2026-11-13</p>
+<h1>Three free tiers, tested: OpenRouter, Groq, Cloudflare</h1>
+<p><strong>Bottom line first: all three are free, but each has its traps. OpenRouter is fastest to set up, Groq is fastest but easiest to get blocked, Cloudflare is the most stable. Keys are shown only once — save them in the vault right away, and never paste them in chat.</strong></p>
+
+<h2>1. OpenRouter: fastest, ten minutes to set up</h2>
 <ul>
-<li>免费档：名字带 <code>:free</code> 的模型每次 $0；没买过积分的账号每天 50 次免费请求，每分钟最多 20 次；每天 00:00 UTC（北京时间 08:00）刷新。</li>
-<li>注册：用 hokodaca@gmail.com 点 Google 登录，建密钥（以 <code>sk-or-v1-</code> 开头），名字只写 <code>hokodaca-stage1</code>。</li>
-<li>坑：报 429 就是到上限了，等第二天 08:00 刷新，别删密钥重建。</li>
+<li>Free tier: models with <code>:free</code> in the name cost $0 per call; accounts that never bought credits get 50 free requests a day, max 20 per minute; refreshes daily at 00:00 UTC (08:00 SGT).</li>
+<li>Sign up with Google login, create a key (starts with <code>sk-or-v1-</code>), and name it for the project.</li>
+<li>Trap: a 429 means you hit the limit — wait for the 08:00 refresh, don&rsquo;t delete the key and create a new one.</li>
 </ul>
 
-<h2>2. Groq：最快，但 403 别慌</h2>
+<h2>2. Groq: fastest, but don&rsquo;t panic at 403</h2>
 <ul>
-<li>免费档：按模型限流，数字会变，以控制台 Settings → Limits 页为准，别信网上旧数字。</li>
-<li>注册：用 hokodaca@gmail.com 邮箱注册，建密钥（以 <code>gsk_</code> 开头），接口地址是 <code>https://api.groq.com/openai/v1</code>。</li>
-<li>坑：报 403 / 错误码 1010，不是密钥错了，是 Cloudflare 拦了默认 User-Agent。调用时加浏览器风格的 User-Agent 就行，别删密钥重建。Whisper 转写约每天 8 小时音频。</li>
+<li>Free tier: rate limits vary by model and change over time — trust the Settings &rarr; Limits page in the console, not old numbers online.</li>
+<li>Sign up with email, create a key (starts with <code>gsk_</code>); the API base is <code>https://api.groq.com/openai/v1</code>.</li>
+<li>Trap: a 403 / error 1010 doesn&rsquo;t mean the key is wrong — Cloudflare blocks the default User-Agent. Send a browser-style User-Agent and it works; don&rsquo;t delete the key and create a new one. Whisper transcription covers about 8 hours of audio a day.</li>
 </ul>
 
-<h2>3. Cloudflare Workers AI：最稳，每天 10,000 Neurons</h2>
+<h2>3. Cloudflare Workers AI: most stable, 10,000 Neurons a day</h2>
 <ul>
-<li>免费档：每天 10,000 Neurons（官方公开数字；2026-11-13 注册后账单页没直接显示这个数字，以 Workers Free 活动中为准），00:00 UTC（北京时间 08:00）刷新；用完报错停掉，不扣钱（错误码 3036）。</li>
-<li>注册：用 hokodaca@gmail.com 注册，复制 Account ID（32 位，不保密），建 Workers AI 令牌（只显示一次，存保险库）。</li>
-<li>坑：个别新模型要付费计划，免费档里别选它们；报 3036 就是当天额度用完了，等明天。</li>
+<li>Free tier: 10,000 Neurons a day (official public number; after registering on 2026-11-13 the billing page didn&rsquo;t show it directly — go by the Workers Free allowance), refreshes at 00:00 UTC (08:00 SGT); when it&rsquo;s used up you get an error and it stops, no charge (error 3036).</li>
+<li>Sign up, copy the Account ID (32 characters, not secret), and create a Workers AI token (shown once — store it in the vault).</li>
+<li>Trap: some newer models need a paid plan — don&rsquo;t pick them on the free tier; error 3036 means the day&rsquo;s quota is used up, wait for tomorrow.</li>
 </ul>
 
-<h2>两家不用试了</h2>
+<h2>Two not worth trying</h2>
 <ul>
-<li><strong>Cerebras：放弃。</strong>没有永久免费层，只有一一次性 $5 额度，激活后 30 天过期，注册要验证付款方式。</li>
-<li><strong>Cloady：已注册（2026-11-13）。</strong>工作区 DA DA，$0.00/月；长期免费工作区是真的（0.5 vCPU / 1GB / 5GB，每月 10GB 流量，不绑卡），但免费层只在 EU1、USE1、USW1，新加坡 SIN1 缺货，工作区已从默认日本切到德国 EU1；7 天没流量会暂停，没自动备份，只适合轻量测试。</li>
+<li><strong>Cerebras: skipped.</strong> No permanent free tier — only a one-time $5 credit that expires 30 days after activation, and sign-up requires a payment method.</li>
+<li><strong>Cloady: registered (2026-11-13).</strong> $0.00/month; the long-term free workspace is real (0.5 vCPU / 1GB / 5GB, 10GB traffic a month, no card), but the free tier only runs in EU1, USE1, and USW1 — Singapore SIN1 was out of stock, so the workspace moved from the Japan default to Germany EU1. It pauses after 7 days without traffic and has no automatic backup, so it&rsquo;s only good for light testing.</li>
 </ul>
 
-<p class="tag">数据来源：2026-11-13 官方公开页核实；额度以注册后控制台显示为准。</p>
+<p class="tag">Figures verified against official public pages on 2026-11-13; quotas are as shown in the console after registration.</p>
+</article>
+
+<footer>
+  <div class="wrap cols">
+    <div>
+      <strong style="color:var(--navy)">HOKODACA</strong><br>
+      AI for a Smarter Business<br>
+      <a href="mailto:hokodaca@gmail.com">hokodaca@gmail.com</a>
+    </div>
+    <div>
+      <a href="https://github.com/hokodaca">GitHub</a> &middot;
+      <a href="https://www.youtube.com/@hokodaca">YouTube</a> &middot;
+      <a href="https://hokodaca.substack.com/">Substack</a> &middot;
+      <a href="https://x.com/hokodaca">X</a> &middot;
+      <a href="https://hokodaca.hashnode.dev/">Hashnode</a>
+    </div>
+    <div>&copy; 2026 Hokodaca</div>
+  </div>
+</footer>
 </body>
 </html>
