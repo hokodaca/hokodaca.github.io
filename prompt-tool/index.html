@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-SG">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hokodaca 提示词工具</title>
+<style>
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:720px;margin:0 auto;padding:20px 16px 40px;color:#222;line-height:1.6;background:#fff}
+h1{font-size:26px;margin:0 0 4px;color:#1a56db}
+.sub{color:#555;margin:0 0 24px}
+h2{font-size:18px;margin:28px 0 10px;border-left:4px solid #1a56db;padding-left:8px}
+.btn{display:inline-block;margin:4px 6px 4px 0;padding:8px 14px;border:1px solid #1a56db;border-radius:20px;background:#fff;color:#1a56db;cursor:pointer;font-size:15px}
+.btn.on{background:#1a56db;color:#fff}
+.btn:disabled{border-color:#ccc;color:#999;cursor:not-allowed}
+label{display:block;margin:10px 0 4px;font-weight:bold}
+input{width:100%;box-sizing:border-box;padding:10px;border:1px solid #ccc;border-radius:8px;font-size:15px}
+.gen{display:block;width:100%;margin:16px 0 8px;padding:12px;background:#1a56db;color:#fff;border:none;border-radius:8px;font-size:17px;cursor:pointer}
+#output{width:100%;box-sizing:border-box;min-height:120px;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:15px;white-space:pre-wrap;background:#f7f9ff}
+.copy{margin-top:8px;padding:10px 18px;background:#0a8a3f;color:#fff;border:none;border-radius:8px;font-size:15px;cursor:pointer}
+.why{color:#666;font-size:14px;margin-top:10px}
+.note{color:#888;font-size:14px}
+.pack{border:1px dashed #1a56db;border-radius:10px;padding:14px;background:#f7f9ff}
+footer{margin-top:36px;color:#999;font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<h1>Hokodaca 提示词工具</h1>
+<p class="sub">免费、免登录，填 3 个空就能生成提示词，复制去任何 AI 里用。</p>
+<h2>第一步：选行业</h2>
+<div id="industries"></div>
+<h2>第二步：选任务</h2>
+<div id="tasks"><p class="note">先选一个行业。</p></div>
+<h2>第三步：填 3 个空</h2>
+<div id="blanks"><p class="note">先选一个任务。</p></div>
+<button class="gen" id="genBtn" type="button">生成提示词</button>
+<h2>你的提示词</h2>
+<div id="output">生成后会出现在这里。</div>
+<button class="copy" id="copyBtn" type="button">复制</button>
+<p class="why" id="why"></p>
+<h2>免费样例</h2>
+<div id="samples"></div>
+<h2>想要更多？</h2>
+<div class="pack">
+<p><strong>完整 30 条提示词包（客服+销售跟进）$19</strong></p>
+<p>购买链接稍后上线。</p>
+</div>
+<footer>Hokodaca &middot; hokodaca.github.io</footer>
+<script>
+var DATA = {"电商": [{"task": "写产品介绍", "blanks": ["产品名字", "产品最大的卖点", "适合什么人用"], "template": "请用简洁口吻介绍【产品名字】，突出其【产品最大的卖点】，并说明适合【适合什么人用】使用。", "why": "帮助新手快速聚焦卖点和受众。"}, {"task": "写促销文案", "blanks": ["产品名字", "优惠内容", "活动截止时间"], "template": "限时抢购！【产品名字】现在【优惠内容】，仅剩【活动截止时间】，快来下单吧！", "why": "突出紧迫感，促使用户立即行动。"}, {"task": "回客户差评", "blanks": ["客户抱怨的问题", "你的解决办法", "给客户的补偿"], "template": "您好，针对您提到的【客户抱怨的问题】，我们已采取【你的解决办法】，并愿意提供【给客户的补偿】，敬请谅解。", "why": "示诚意并提供具体补救方案。"}, {"task": "写客服自动回复", "blanks": ["店铺名字", "常见问题", "回复的语气"], "template": "感谢联系【店铺名字】！关于【常见问题】，我们会尽快回复，【回复的语气】。", "why": "简洁友好，满足新手快速设置需求。"}], "自媒体": [{"task": "写短视频脚本", "blanks": ["视频主题", "目标观众", "视频时长"], "template": "请根据【视频主题】，为【目标观众】创作一段约【视频时长】秒的短视频脚本，包含开场、高潮、结尾三部分。", "why": "让新手快速明确要点。"}, {"task": "写公众号标题", "blanks": ["文章主题", "想吸引的读者", "标题风格"], "template": "以【文章主题】为核心，写一个能吸引【想吸引的读者】的【标题风格】标题，要求简洁有冲击力。", "why": "标题是第一印象，直接决定点击。"}, {"task": "写涨粉文案", "blanks": ["你的账号定位", "这篇内容的亮点", "希望读者做什么"], "template": "根据【你的账号定位】，突出【这篇内容的亮点】，写一段引导读者【希望读者做什么】的涨粉文案，语言轻松易懂。", "why": "清晰定位+行动号召，提升转化。"}], "餐饮": [{"task": "写菜单介绍", "blanks": ["菜品名字", "主要食材和做法", "适合什么场合吃"], "template": "请用简洁口吻写一段菜单介绍，介绍【菜品名字】的主要食材和做法（【主要食材和做法】），并说明适合的场合（【适合什么场合吃】）。", "why": "让AI直接知道要填的内容，结构清晰。"}, {"task": "写新品推广", "blanks": ["新品名字", "新品的特色", "优惠或活动"], "template": "请写一段新品推广文案，标题用【新品名字】；正文突出其特色（【新品的特色】），并加入当前优惠或活动信息（【优惠或活动】）。", "why": "帮助AI抓重点，生成完整营销文案。"}, {"task": "回食客差评", "blanks": ["食客抱怨的问题", "你的解决办法", "给食客的补偿"], "template": "请写一封回复信，先针对食客抱怨的【食客抱怨的问题】表示歉意，说明你将如何解决（【你的解决办法】），并提供补偿方案（【给食客的补偿】）。", "why": "结构化回复，确保礼貌且有行动方案。"}], "教育": [{"task": "写课程介绍", "blanks": ["课程名字", "课程最大的亮点", "适合什么学生"], "template": "我们的【课程名字】课程，为您提供【课程最大的亮点】，让您快速掌握新技能，适合【适合什么学生】学生参加。", "why": "为了让学生快速了解课程内容和优势。"}, {"task": "写招生文案", "blanks": ["课程名字", "优惠内容", "报名截止时间"], "template": "即刻报名我们的【课程名字】课程，享受【优惠内容】优惠，截止日期为【报名截止时间】，不要错过！", "why": "为了吸引学生报名并提供明确的优惠信息。"}, {"task": "写家长通知", "blanks": ["通知内容", "活动时间地点", "需要家长配合的事"], "template": "亲爱的家长，我们有重要的【通知内容】通知，活动将于【活动时间地点】举行，为了活动顺利进行，需要您配合【需要家长配合的事】。", "why": "为了让家长了解重要信息并配合学校活动。"}], "房产中介": [{"task": "写房源描述", "blanks": ["房子地点和户型", "房子最大的卖点", "适合什么买家"], "template": "位于【房子地点和户型】的这栋房子，拥有【房子最大的卖点】，非常适合【适合什么买家】。", "why": "为了简明扼要地介绍房子信息，吸引潜在买家。"}, {"task": "写带看邀约", "blanks": ["客户名字", "房子地址", "带看时间"], "template": "您好【客户名字】，我们安排在【带看时间】带您看【房子地址】的房子，请您届时到场。", "why": "为了礼貌地邀请客户并提供具体的看房安排。"}, {"task": "写成交跟进", "blanks": ["客户名字", "房子地址", "下一步要做的事"], "template": "恭喜【客户名字】成功购买【房子地址】的房子，下一步我们将【下一步要做的事】。", "why": "为了确认成交信息并告知客户下一步的流程。"}], "小公司行政": [{"task": "写通知公告", "blanks": ["通知内容", "生效时间", "需要大家配合的事"], "template": "请大家注意，【通知内容】将从【生效时间】开始实施，为了顺利执行，请大家配合【需要大家配合的事】。", "why": "为了让员工清晰了解公司新的政策或规定。"}, {"task": "写会议纪要", "blanks": ["会议主题", "讨论的几个重点", "定下来的事和负责人"], "template": "会议主题为【会议主题】，讨论了【讨论的几个重点】，决定【定下来的事和负责人】负责跟进。", "why": "为了让与会人员回忆讨论内容和决定事项。"}, {"task": "写报销说明", "blanks": ["能报的项目", "需要什么单据", "报销截止时间"], "template": "公司可报销【能报的项目】，请提交【需要什么单据】，报销申请需在【报销截止时间】前提交。", "why": "为了让员工了解报销流程和注意事项。"}]};
+var curIndustry = null, curTask = null;
+function el(id){ return document.getElementById(id); }
+function renderIndustries(){
+  var box = el('industries'); box.innerHTML = '';
+  Object.keys(DATA).forEach(function(name){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'btn'; b.textContent = name;
+    if (!DATA[name]) { b.disabled = true; b.textContent = name + '（即将上线）'; }
+    b.onclick = function(){ selectIndustry(name, b); };
+    box.appendChild(b);
+  });
+}
+function selectIndustry(name, btn){
+  curIndustry = name; curTask = null;
+  var btns = el('industries').querySelectorAll('.btn');
+  btns.forEach(function(x){ x.classList.remove('on'); });
+  btn.classList.add('on');
+  var box = el('tasks'); box.innerHTML = '';
+  DATA[name].forEach(function(t){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'btn'; b.textContent = t.task;
+    b.onclick = function(){ selectTask(t, b); };
+    box.appendChild(b);
+  });
+  el('blanks').innerHTML = '<p class="note">先选一个任务。</p>';
+  el('output').textContent = '生成后会出现在这里。';
+  el('why').textContent = '';
+}
+function selectTask(t, btn){
+  curTask = t;
+  var btns = el('tasks').querySelectorAll('.btn');
+  btns.forEach(function(x){ x.classList.remove('on'); });
+  btn.classList.add('on');
+  var box = el('blanks'); box.innerHTML = '';
+  t.blanks.forEach(function(label, i){
+    var lab = document.createElement('label');
+    lab.textContent = '填空' + (i + 1) + '：' + label;
+    var inp = document.createElement('input');
+    inp.type = 'text'; inp.id = 'blank' + i; inp.placeholder = label;
+    box.appendChild(lab); box.appendChild(inp);
+  });
+  el('why').textContent = '为什么这样写：' + t.why;
+}
+el('genBtn').onclick = function(){
+  if (!curTask) { el('output').textContent = '请先选行业和任务，再填空。'; return; }
+  var out = curTask.template;
+  curTask.blanks.forEach(function(label, i){
+    var v = (el('blank' + i).value || '').trim();
+    out = out.split('【' + label + '】').join(v ? v : '【' + label + '】');
+  });
+  el('output').textContent = out;
+};
+el('copyBtn').onclick = function(){
+  var text = el('output').textContent;
+  function done(){ el('copyBtn').textContent = '已复制'; setTimeout(function(){ el('copyBtn').textContent = '复制'; }, 1500); }
+  function fallback(){
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function(){ fallback(); });
+  } else { fallback(); }
+};
+var SAMPLES = [{"task": "新客咨询首回", "blanks": ["产品名称", "客户姓名", "联系方式"], "template": "您好【客户姓名】，感谢您对【产品名称】的兴趣，目前我们的【产品名称】非常受欢迎，【联系方式】将尽快联系您。", "why": "快速回复让客户感受到重视。"}, {"task": "首次跟进", "blanks": ["产品名称", "客户姓名", "跟进时间"], "template": "您好【客户姓名】，之前有咨询过【产品名称】，现在有任何新进展吗？【跟进时间】将继续关注您的需求。", "why": "跟进客户的需求，保持互动。"}, {"task": "报价单说明", "blanks": ["产品名称", "价格", "有效期"], "template": "【产品名称】的报价为【价格】，此价格有效期至【有效期】，如有任何疑问请联系我们。", "why": "清晰明了的报价信息方便客户决策。"}, {"task": "差评公开回复", "blanks": ["客户姓名", "问题描述", "解决方案"], "template": "对【客户姓名】的【问题描述】表示歉意，我们正在采取【解决方案】措施改善。", "why": "公开回复差评，展现诚意和改进意识。"}, {"task": "新品通知老客", "blanks": ["新品名称", "客户姓名", "优惠信息"], "template": "您好【客户姓名】，我们新推出了【新品名称】，为感谢老客户，特别提供【优惠信息】优惠。", "why": "让老客户感受到价值和被重视。"}];
+(function(){
+  var box = el('samples'); if(!box) return;
+  SAMPLES.forEach(function(s){
+    var p = document.createElement('p');
+    var t = document.createElement('strong'); t.textContent = s.task; p.appendChild(t);
+    p.appendChild(document.createElement('br'));
+    p.appendChild(document.createTextNode(s.template));
+    p.appendChild(document.createElement('br'));
+    var w = document.createElement('span'); w.className = 'note'; w.textContent = '为什么这样写：' + s.why; p.appendChild(w);
+    box.appendChild(p);
+  });
+})();
+renderIndustries();
+</script>
+</body>
+</html>
