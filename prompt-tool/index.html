@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-SG">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hokodaca 提示词工具</title>
+<title>Hokodaca Prompt Builder</title>
 <style>
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:720px;margin:0 auto;padding:20px 16px 40px;color:#222;line-height:1.6;background:#fff}
+body{font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;max-width:720px;margin:0 auto;padding:20px 16px 40px;color:#222;line-height:1.6;background:#fff}
 h1{font-size:26px;margin:0 0 4px;color:#1a56db}
 .sub{color:#555;margin:0 0 24px}
 h2{font-size:18px;margin:28px 0 10px;border-left:4px solid #1a56db;padding-left:8px}
@@ -24,29 +24,29 @@ footer{margin-top:36px;color:#999;font-size:13px;text-align:center}
 </style>
 </head>
 <body>
-<h1>Hokodaca 提示词工具</h1>
-<p class="sub">免费、免登录，填 3 个空就能生成提示词，复制去任何 AI 里用。</p>
-<h2>第一步：选行业</h2>
+<h1>Hokodaca Prompt Builder</h1>
+<p class="sub">Free, no sign-up. Fill in 3 blanks and get a ready-to-use prompt you can paste into any AI tool.</p>
+<h2>Step 1: Pick your industry</h2>
 <div id="industries"></div>
-<h2>第二步：选任务</h2>
-<div id="tasks"><p class="note">先选一个行业。</p></div>
-<h2>第三步：填 3 个空</h2>
-<div id="blanks"><p class="note">先选一个任务。</p></div>
-<button class="gen" id="genBtn" type="button">生成提示词</button>
-<h2>你的提示词</h2>
-<div id="output">生成后会出现在这里。</div>
-<button class="copy" id="copyBtn" type="button">复制</button>
+<h2>Step 2: Pick a task</h2>
+<div id="tasks"><p class="note">Pick an industry first.</p></div>
+<h2>Step 3: Fill in 3 blanks</h2>
+<div id="blanks"><p class="note">Pick a task first.</p></div>
+<button class="gen" id="genBtn" type="button">Generate prompt</button>
+<h2>Your prompt</h2>
+<div id="output">Your generated prompt will appear here.</div>
+<button class="copy" id="copyBtn" type="button">Copy</button>
 <p class="why" id="why"></p>
-<h2>免费样例</h2>
+<h2>Free samples</h2>
 <div id="samples"></div>
-<h2>想要更多？</h2>
+<h2>Want more?</h2>
 <div class="pack">
-<p><strong>完整 30 条提示词包（客服+销售跟进）$19</strong></p>
-<p>购买链接稍后上线。</p>
+<p><strong>The full 30-prompt pack (customer service + sales follow-up) — $19</strong></p>
+<p>The buy link is coming soon.</p>
 </div>
 <footer>Hokodaca &middot; hokodaca.github.io</footer>
 <script>
-var DATA = {"电商": [{"task": "写产品介绍", "blanks": ["产品名字", "产品最大的卖点", "适合什么人用"], "template": "请用简洁口吻介绍【产品名字】，突出其【产品最大的卖点】，并说明适合【适合什么人用】使用。", "why": "帮助新手快速聚焦卖点和受众。"}, {"task": "写促销文案", "blanks": ["产品名字", "优惠内容", "活动截止时间"], "template": "限时抢购！【产品名字】现在【优惠内容】，仅剩【活动截止时间】，快来下单吧！", "why": "突出紧迫感，促使用户立即行动。"}, {"task": "回客户差评", "blanks": ["客户抱怨的问题", "你的解决办法", "给客户的补偿"], "template": "您好，针对您提到的【客户抱怨的问题】，我们已采取【你的解决办法】，并愿意提供【给客户的补偿】，敬请谅解。", "why": "示诚意并提供具体补救方案。"}, {"task": "写客服自动回复", "blanks": ["店铺名字", "常见问题", "回复的语气"], "template": "感谢联系【店铺名字】！关于【常见问题】，我们会尽快回复，【回复的语气】。", "why": "简洁友好，满足新手快速设置需求。"}], "自媒体": [{"task": "写短视频脚本", "blanks": ["视频主题", "目标观众", "视频时长"], "template": "请根据【视频主题】，为【目标观众】创作一段约【视频时长】秒的短视频脚本，包含开场、高潮、结尾三部分。", "why": "让新手快速明确要点。"}, {"task": "写公众号标题", "blanks": ["文章主题", "想吸引的读者", "标题风格"], "template": "以【文章主题】为核心，写一个能吸引【想吸引的读者】的【标题风格】标题，要求简洁有冲击力。", "why": "标题是第一印象，直接决定点击。"}, {"task": "写涨粉文案", "blanks": ["你的账号定位", "这篇内容的亮点", "希望读者做什么"], "template": "根据【你的账号定位】，突出【这篇内容的亮点】，写一段引导读者【希望读者做什么】的涨粉文案，语言轻松易懂。", "why": "清晰定位+行动号召，提升转化。"}], "餐饮": [{"task": "写菜单介绍", "blanks": ["菜品名字", "主要食材和做法", "适合什么场合吃"], "template": "请用简洁口吻写一段菜单介绍，介绍【菜品名字】的主要食材和做法（【主要食材和做法】），并说明适合的场合（【适合什么场合吃】）。", "why": "让AI直接知道要填的内容，结构清晰。"}, {"task": "写新品推广", "blanks": ["新品名字", "新品的特色", "优惠或活动"], "template": "请写一段新品推广文案，标题用【新品名字】；正文突出其特色（【新品的特色】），并加入当前优惠或活动信息（【优惠或活动】）。", "why": "帮助AI抓重点，生成完整营销文案。"}, {"task": "回食客差评", "blanks": ["食客抱怨的问题", "你的解决办法", "给食客的补偿"], "template": "请写一封回复信，先针对食客抱怨的【食客抱怨的问题】表示歉意，说明你将如何解决（【你的解决办法】），并提供补偿方案（【给食客的补偿】）。", "why": "结构化回复，确保礼貌且有行动方案。"}], "教育": [{"task": "写课程介绍", "blanks": ["课程名字", "课程最大的亮点", "适合什么学生"], "template": "我们的【课程名字】课程，为您提供【课程最大的亮点】，让您快速掌握新技能，适合【适合什么学生】学生参加。", "why": "为了让学生快速了解课程内容和优势。"}, {"task": "写招生文案", "blanks": ["课程名字", "优惠内容", "报名截止时间"], "template": "即刻报名我们的【课程名字】课程，享受【优惠内容】优惠，截止日期为【报名截止时间】，不要错过！", "why": "为了吸引学生报名并提供明确的优惠信息。"}, {"task": "写家长通知", "blanks": ["通知内容", "活动时间地点", "需要家长配合的事"], "template": "亲爱的家长，我们有重要的【通知内容】通知，活动将于【活动时间地点】举行，为了活动顺利进行，需要您配合【需要家长配合的事】。", "why": "为了让家长了解重要信息并配合学校活动。"}], "房产中介": [{"task": "写房源描述", "blanks": ["房子地点和户型", "房子最大的卖点", "适合什么买家"], "template": "位于【房子地点和户型】的这栋房子，拥有【房子最大的卖点】，非常适合【适合什么买家】。", "why": "为了简明扼要地介绍房子信息，吸引潜在买家。"}, {"task": "写带看邀约", "blanks": ["客户名字", "房子地址", "带看时间"], "template": "您好【客户名字】，我们安排在【带看时间】带您看【房子地址】的房子，请您届时到场。", "why": "为了礼貌地邀请客户并提供具体的看房安排。"}, {"task": "写成交跟进", "blanks": ["客户名字", "房子地址", "下一步要做的事"], "template": "恭喜【客户名字】成功购买【房子地址】的房子，下一步我们将【下一步要做的事】。", "why": "为了确认成交信息并告知客户下一步的流程。"}], "小公司行政": [{"task": "写通知公告", "blanks": ["通知内容", "生效时间", "需要大家配合的事"], "template": "请大家注意，【通知内容】将从【生效时间】开始实施，为了顺利执行，请大家配合【需要大家配合的事】。", "why": "为了让员工清晰了解公司新的政策或规定。"}, {"task": "写会议纪要", "blanks": ["会议主题", "讨论的几个重点", "定下来的事和负责人"], "template": "会议主题为【会议主题】，讨论了【讨论的几个重点】，决定【定下来的事和负责人】负责跟进。", "why": "为了让与会人员回忆讨论内容和决定事项。"}, {"task": "写报销说明", "blanks": ["能报的项目", "需要什么单据", "报销截止时间"], "template": "公司可报销【能报的项目】，请提交【需要什么单据】，报销申请需在【报销截止时间】前提交。", "why": "为了让员工了解报销流程和注意事项。"}]};
+var DATA = {"E-commerce": [{"task": "Write a product description", "blanks": ["Product name", "Biggest selling point", "Who it's for"], "template": "Write a short, punchy product description for [Product name]. Highlight its biggest selling point: [Biggest selling point]. Make clear it's made for [Who it's for].", "why": "Helps beginners zero in on the selling point and the audience first."}, {"task": "Write a promo post", "blanks": ["Product name", "The offer", "Offer ends"], "template": "Flash sale! [Product name] is now [The offer] — but only until [Offer ends]. Order now before it's gone!", "why": "A deadline creates urgency and gets people to act now."}, {"task": "Reply to a bad review", "blanks": ["What the customer complained about", "What you've done to fix it", "What you're offering to make it right"], "template": "Hi, thank you for your feedback. About [What the customer complained about] — we've already [What you've done to fix it], and we'd like to offer you [What you're offering to make it right]. We're sorry for the trouble and hope you'll give us another chance.", "why": "Shows you take it seriously and offers a concrete fix."}, {"task": "Write a customer service auto-reply", "blanks": ["Shop name", "Common question", "Tone of the reply"], "template": "Thanks for contacting [Shop name]! About [Common question] — we'll look into it and get back to you very soon. Please keep the tone [Tone of the reply].", "why": "Short, friendly, and quick to set up for first-timers."}], "Content Creator": [{"task": "Write a short video script", "blanks": ["Video topic", "Target audience", "Video length (seconds)"], "template": "Write a short video script about [Video topic] for [Target audience], about [Video length (seconds)] seconds long, with a hook, a middle, and a strong ending.", "why": "Gives beginners a clear structure to follow."}, {"task": "Write a blog post title", "blanks": ["Article topic", "Readers you want to attract", "Title style"], "template": "Write a [Title style] headline about [Article topic] that will grab [Readers you want to attract]. Keep it short and punchy.", "why": "The headline is the first impression — it decides the click."}, {"task": "Write a follower-growth post", "blanks": ["What your account is about", "The highlight of this post", "What you want readers to do"], "template": "Write a friendly, easy-to-read post for an account about [What your account is about]. Highlight [The highlight of this post] and end by inviting readers to [What you want readers to do].", "why": "Clear positioning plus a call to action turns readers into followers."}], "Restaurant": [{"task": "Write a menu description", "blanks": ["Dish name", "Main ingredients and how it's made", "Best occasion to order it"], "template": "Write a short, appetizing menu description for [Dish name]. Cover the main ingredients and how it's made ([Main ingredients and how it's made]) and say what occasion it suits best ([Best occasion to order it]).", "why": "A clear structure tells the AI exactly what to include."}, {"task": "Promote a new dish", "blanks": ["New dish name", "What makes it special", "Current offer or event"], "template": "Write a promo post for our new dish, [New dish name]. Lead with what makes it special ([What makes it special]) and include the current offer ([Current offer or event]).", "why": "Helps the AI focus on the highlights and produce a complete promo."}, {"task": "Reply to a bad review", "blanks": ["What the diner complained about", "What you'll do to fix it", "What you're offering the diner"], "template": "Write a reply that first apologizes for [What the diner complained about], explains how you'll fix it ([What you'll do to fix it]), and offers the diner [What you're offering the diner] to make it right.", "why": "A structured reply stays polite and always includes a next step."}], "Education": [{"task": "Write a course description", "blanks": ["Course name", "Biggest highlight of the course", "Who the course is for"], "template": "Write a course description for [Course name]. Highlight [Biggest highlight of the course] and make clear it's designed for [Who the course is for] who want to pick up new skills fast.", "why": "Lets prospective students see the value at a glance."}, {"task": "Write an enrollment promo", "blanks": ["Course name", "The offer", "Enrollment deadline"], "template": "Enroll in [Course name] today and get [The offer]. Hurry — enrollment closes on [Enrollment deadline]. Don't miss out!", "why": "A clear offer plus a deadline motivates sign-ups."}, {"task": "Write a notice to parents", "blanks": ["What the notice is about", "When and where", "What parents need to do"], "template": "Dear parents, we'd like to let you know about [What the notice is about]. It takes place at [When and where]. To help everything run smoothly, please [What parents need to do]. Thank you for your support!", "why": "Keeps parents informed and tells them exactly what they need to do."}], "Real Estate": [{"task": "Write a listing description", "blanks": ["Location and layout", "Biggest selling point", "Ideal buyer"], "template": "Write a listing description for a home at [Location and layout]. Highlight its best feature — [Biggest selling point] — and show why it's perfect for [Ideal buyer].", "why": "A concise pitch that grabs the right buyers fast."}, {"task": "Invite a client to a viewing", "blanks": ["Client's name", "Property address", "Viewing time"], "template": "Hi [Client's name], we'd love to show you the home at [Property address]. We've scheduled your viewing for [Viewing time] — please let us know if that works for you.", "why": "A polite invite with the time and place confirmed."}, {"task": "Follow up after a sale", "blanks": ["Client's name", "Property address", "Next step"], "template": "Congratulations, [Client's name], on your purchase of the home at [Property address]! The next step is: [Next step]. We'll guide you through it from here.", "why": "Confirms the deal and tells the client exactly what happens next."}], "Small Business Admin": [{"task": "Write a company notice", "blanks": ["What the notice is about", "When it takes effect", "What everyone needs to do"], "template": "Please note: [What the notice is about] will take effect from [When it takes effect]. To make the transition smooth, please [What everyone needs to do]. Thank you for your cooperation.", "why": "Makes new policies clear so nothing gets missed."}, {"task": "Write meeting minutes", "blanks": ["Meeting topic", "Key points discussed", "Decisions made and who's responsible"], "template": "Meeting topic: [Meeting topic]. Key points discussed: [Key points discussed]. Decisions: [Decisions made and who's responsible] will follow up.", "why": "Helps everyone recall what was discussed and decided."}, {"task": "Write reimbursement guidelines", "blanks": ["What can be reimbursed", "Receipts or documents needed", "Submission deadline"], "template": "You can claim reimbursement for [What can be reimbursed]. Please attach [Receipts or documents needed] and submit your claim before [Submission deadline].", "why": "Spells out the process so claims don't bounce back."}]};
 var curIndustry = null, curTask = null;
 function el(id){ return document.getElementById(id); }
 function renderIndustries(){
@@ -54,7 +54,7 @@ function renderIndustries(){
   Object.keys(DATA).forEach(function(name){
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'btn'; b.textContent = name;
-    if (!DATA[name]) { b.disabled = true; b.textContent = name + '（即将上线）'; }
+    if (!DATA[name]) { b.disabled = true; b.textContent = name + ' (coming soon)'; }
     b.onclick = function(){ selectIndustry(name, b); };
     box.appendChild(b);
   });
@@ -71,8 +71,8 @@ function selectIndustry(name, btn){
     b.onclick = function(){ selectTask(t, b); };
     box.appendChild(b);
   });
-  el('blanks').innerHTML = '<p class="note">先选一个任务。</p>';
-  el('output').textContent = '生成后会出现在这里。';
+  el('blanks').innerHTML = '<p class="note">Pick a task first.</p>';
+  el('output').textContent = 'Your generated prompt will appear here.';
   el('why').textContent = '';
 }
 function selectTask(t, btn){
@@ -83,25 +83,25 @@ function selectTask(t, btn){
   var box = el('blanks'); box.innerHTML = '';
   t.blanks.forEach(function(label, i){
     var lab = document.createElement('label');
-    lab.textContent = '填空' + (i + 1) + '：' + label;
+    lab.textContent = 'Blank ' + (i + 1) + ': ' + label;
     var inp = document.createElement('input');
     inp.type = 'text'; inp.id = 'blank' + i; inp.placeholder = label;
     box.appendChild(lab); box.appendChild(inp);
   });
-  el('why').textContent = '为什么这样写：' + t.why;
+  el('why').textContent = 'Why it works: ' + t.why;
 }
 el('genBtn').onclick = function(){
-  if (!curTask) { el('output').textContent = '请先选行业和任务，再填空。'; return; }
+  if (!curTask) { el('output').textContent = 'Please pick an industry and a task first, then fill in the blanks.'; return; }
   var out = curTask.template;
   curTask.blanks.forEach(function(label, i){
     var v = (el('blank' + i).value || '').trim();
-    out = out.split('【' + label + '】').join(v ? v : '【' + label + '】');
+    out = out.split('[' + label + ']').join(v ? v : '[' + label + ']');
   });
   el('output').textContent = out;
 };
 el('copyBtn').onclick = function(){
   var text = el('output').textContent;
-  function done(){ el('copyBtn').textContent = '已复制'; setTimeout(function(){ el('copyBtn').textContent = '复制'; }, 1500); }
+  function done(){ el('copyBtn').textContent = 'Copied'; setTimeout(function(){ el('copyBtn').textContent = 'Copy'; }, 1500); }
   function fallback(){
     var ta = document.createElement('textarea');
     ta.value = text; document.body.appendChild(ta); ta.select();
@@ -112,7 +112,7 @@ el('copyBtn').onclick = function(){
     navigator.clipboard.writeText(text).then(done, function(){ fallback(); });
   } else { fallback(); }
 };
-var SAMPLES = [{"task": "新客咨询首回", "blanks": ["产品名称", "客户姓名", "联系方式"], "template": "您好【客户姓名】，感谢您对【产品名称】的兴趣，目前我们的【产品名称】非常受欢迎，【联系方式】将尽快联系您。", "why": "快速回复让客户感受到重视。"}, {"task": "首次跟进", "blanks": ["产品名称", "客户姓名", "跟进时间"], "template": "您好【客户姓名】，之前有咨询过【产品名称】，现在有任何新进展吗？【跟进时间】将继续关注您的需求。", "why": "跟进客户的需求，保持互动。"}, {"task": "报价单说明", "blanks": ["产品名称", "价格", "有效期"], "template": "【产品名称】的报价为【价格】，此价格有效期至【有效期】，如有任何疑问请联系我们。", "why": "清晰明了的报价信息方便客户决策。"}, {"task": "差评公开回复", "blanks": ["客户姓名", "问题描述", "解决方案"], "template": "对【客户姓名】的【问题描述】表示歉意，我们正在采取【解决方案】措施改善。", "why": "公开回复差评，展现诚意和改进意识。"}, {"task": "新品通知老客", "blanks": ["新品名称", "客户姓名", "优惠信息"], "template": "您好【客户姓名】，我们新推出了【新品名称】，为感谢老客户，特别提供【优惠信息】优惠。", "why": "让老客户感受到价值和被重视。"}];
+var SAMPLES = [{"task": "First reply to a new customer", "blanks": ["Product name", "Customer name", "How you'll contact them"], "template": "Hi [Customer name], thanks for your interest in [Product name]! It's one of our most popular items right now. We'll reach out shortly via [How you'll contact them].", "why": "A fast first reply makes the customer feel valued."}, {"task": "First follow-up", "blanks": ["Product name", "Customer name", "When you'll follow up"], "template": "Hi [Customer name], you asked about [Product name] a little while ago — just checking in to see if you have any questions. We'll check back again [When you'll follow up] if we don't hear from you.", "why": "Keeps the conversation warm without being pushy."}, {"task": "Quote explanation", "blanks": ["Product name", "Price", "Valid until"], "template": "The price for [Product name] is [Price]. This quote is valid until [Valid until]. If you have any questions, just let us know.", "why": "Clear pricing helps the customer decide faster."}, {"task": "Public reply to a bad review", "blanks": ["Customer name", "The problem", "What you're doing about it"], "template": "Hi [Customer name], we're really sorry about [The problem]. We're already [What you're doing about it] to make sure it doesn't happen again.", "why": "A public reply shows honesty and a willingness to improve."}, {"task": "New product announcement to past customers", "blanks": ["New product name", "Customer name", "Special offer"], "template": "Hi [Customer name], we just launched [New product name]! As a thank-you to our loyal customers, here's a special offer for you: [Special offer].", "why": "Makes past customers feel remembered and rewarded."}];
 (function(){
   var box = el('samples'); if(!box) return;
   SAMPLES.forEach(function(s){
@@ -121,7 +121,7 @@ var SAMPLES = [{"task": "新客咨询首回", "blanks": ["产品名称", "客户
     p.appendChild(document.createElement('br'));
     p.appendChild(document.createTextNode(s.template));
     p.appendChild(document.createElement('br'));
-    var w = document.createElement('span'); w.className = 'note'; w.textContent = '为什么这样写：' + s.why; p.appendChild(w);
+    var w = document.createElement('span'); w.className = 'note'; w.textContent = 'Why it works: ' + s.why; p.appendChild(w);
     box.appendChild(p);
   });
 })();
